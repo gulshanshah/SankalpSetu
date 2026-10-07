@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 5px;
+}
+
+  .addHospital,
+  .addDoctor {
+      display: none; 
+      position: fixed; 
+      z-index: 1; 
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      background-color: rgba(0, 0, 0, 0.5); 
+  }
+  
+  .addHospitalContent,
+  .addDoctorContent {
+      margin: 15% auto; 
+      padding: 20px;
+      background-color: white;
+      width: 50%; 
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: center;
+  }
+  
+  .closeAddHospital,
+  .closeAddDoctor {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+  }
+  
+  .closeAddHospital:hover,
+  .closeAddHospital:focus,
+  .closeAddDoctor:hover,
+  .closeAddDoctor:focus {
+      color: black;
+  }
+  
+/* For all browsers */
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+    appearance: textfield;      /* Modern browsers */
+  }
+  
+  /* Remove spinners for WebKit browsers (Chrome, Safari, Edge) */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
