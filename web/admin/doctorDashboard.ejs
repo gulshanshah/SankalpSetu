@@ -16,7 +16,6 @@
             if (data.patients.length > 0) {
                 data.patients.forEach(patient => {
                     patientId = patient.id
-                    // Add patient data to the table dynamically
                     const row = `
                         <tr>
                             <td>${patient.first_name} ${patient.last_name}</td>
@@ -41,9 +40,7 @@
         });
 });
 
-// Function to handle "Send" button click
 function sendPatientData(patientId) {
-    // Find the input field and its value
     const inputField = document.getElementById(`content-${patientId}`);
     const additionalNumber = inputField.value;
 
@@ -52,10 +49,8 @@ function sendPatientData(patientId) {
         return;
     }
 
-    // Locate the corresponding table row
     const row = inputField.closest('tr');
 
-    // Gather patient data from the row
     const patientData = {
         id: patientId,
         name: row.children[0].textContent.trim(),
@@ -67,7 +62,6 @@ function sendPatientData(patientId) {
         addedOn: row.children[6].textContent.trim(),
     };
 
-    // Send data to the backend
     fetch('/sendPatientData', {
         method: 'POST',
         headers: {
@@ -94,7 +88,6 @@ function sendPatientData(patientId) {
 </head>
 <body>
     <div class="container"  id="container">
-        <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
           <hr id="upperone">
           <ul>
@@ -222,32 +215,9 @@ document.addEventListener('keydown', function (event) {
 document.getElementById('reset-btn').disabled = true;
 document.getElementById('decrement-btn').disabled = true;
 
-/*
-updateDoctorNumbers(doctorId, currentNumber);
-function updateDoctorNumbers(doctorId, currentNumber) {
-            fetch('/updateDoctorNumbers', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    doctorId: doctorId,
-                    currentNumber: currentNumber
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Data updated successfully', data);
-            })
-            .catch(error => {
-                console.error('Error updating data', error);
-            });
-        }
-*/
         </script>
         <script>
         console.log("Doctor ID from EJS:", "<%= doctor.id %>");
-       // const doctorId = <%= doctor.id %>;
         
         </script>
         <script src="/socket.io/socket.io.js"></script>
@@ -256,9 +226,8 @@ function updateDoctorNumbers(doctorId, currentNumber) {
     console.log("doctorId:", doctorId);
 
     if (doctorId !== null && !isNaN(doctorId)) {
-        console.log("Doctor ID from Browser:", doctorId); // Logs in the browser console
+        console.log("Doctor ID from Browser:", doctorId);
 
-        // Send to the server
         fetch('/logDoctorId', {
             method: 'POST',
             headers: {
@@ -275,7 +244,6 @@ function updateDoctorNumbers(doctorId, currentNumber) {
 
 
             const socket = io();
-           // const doctorId = parseInt(document.getElementById('doctorId').value, 10);
             console.log('doctorId:', doctorId, 'Type:', typeof doctorId);
         
             function updateNumber(action, doctorId) {
@@ -287,7 +255,6 @@ function updateDoctorNumbers(doctorId, currentNumber) {
         
                 document.getElementById('current-number').textContent = currentNumber;
         
-                // Emit the updated number to the server
                 socket.emit('updateNumber', { doctorId, number: currentNumber });
                 console.log('Sending data:', { doctorId, number: currentNumber });
 
