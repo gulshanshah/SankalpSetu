@@ -5,7 +5,6 @@ const multer = require('multer');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 
-// Multer configuration
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/');
@@ -18,24 +17,19 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Route to add a doctor
 router.post('/', upload.single('doctorPhoto'), async (req, res) => {
     const { hospitalId, doctorName, doctorSkills, doctorUsername, doctorPassword } = req.body;
     const doctorPhotoPath = req.file ? req.file.path : null;
 
     try {
-        // Validate required fields
         if (!hospitalId || !doctorName || !doctorUsername || !doctorPassword) {
             return res.status(400).send('All required fields must be provided');
         }
 
-        // Hash password
         const hashedDoctorPassword = await bcrypt.hash(doctorPassword, 10);
 
-        // SQL query to insert doctor data
         const sql = 'INSERT INTO doctors (hospital_id, name, skills, photo, username, password) VALUES (?, ?, ?, ?, ?, ?)';
         
-        // Use promise-based db.query
         await db.execute(sql, [
             hospitalId,
             doctorName,
