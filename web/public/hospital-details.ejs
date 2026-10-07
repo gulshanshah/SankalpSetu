@@ -4,18 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= hospital.name %> - Details</title>
-    <!--<link rel="stylesheet" href="/home.css">-->
     <link rel="stylesheet" href="/hospitalDetails.css">
 </head>
 <body>
-    <!--<nav>
-        <ul class="menu">
-            <li><a href="/home">Home</a></li>
-            <li><a href="">About</a></li>
-            <li><a href="">Services</a></li>
-            <li><a href="">Contact</a></li>
-        </ul>
-    </nav>-->
 
     <nav>
         <img class="logo" src="/logobcrem.png">
@@ -73,18 +64,17 @@
     </div>
 
     <script>
-        // Handle skill filtering
         document.getElementById('hospitalCategoryFilter').addEventListener('change', function() {
             var selectedSkill = this.value;
-            var doctors = document.querySelectorAll('.box'); // Assuming each doctor div has a class of "doctor-box"
+            var doctors = document.querySelectorAll('.box');
             
             doctors.forEach(function(doctor) {
                 var doctorSkills = doctor.getAttribute('data-skill');
                 
                 if (selectedSkill === 'all' || doctorSkills === selectedSkill) {
-                    doctor.style.display = 'block'; // Show doctor
+                    doctor.style.display = 'block';
                 } else {
-                    doctor.style.display = 'none'; // Hide doctor
+                    doctor.style.display = 'none';
                 }
             });
         });
