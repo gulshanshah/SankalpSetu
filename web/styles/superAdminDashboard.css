@@ -43,13 +43,11 @@
       color: black;
   }
   
-/* For all browsers */
 input[type="number"] {
-    -moz-appearance: textfield; /* Firefox */
-    appearance: textfield;      /* Modern browsers */
+    -moz-appearance: textfield;
+    appearance: textfield;
   }
   
-  /* Remove spinners for WebKit browsers (Chrome, Safari, Edge) */
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
