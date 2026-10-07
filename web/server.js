@@ -23,15 +23,12 @@ const port = 3000;
 const server = http.createServer(app);
 const io = new Server(server);
 
-// Handle WebSocket connection
 io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
 
-    // Listen for number updates from doctor dashboard
     socket.on('updateNumber', (data) => {
         console.log(`Doctor ID: ${data.doctorId}, New Number: ${data.number}`);
 
-        // Broadcast the number update to clients
         io.emit('numberUpdate', data);
     });
 
