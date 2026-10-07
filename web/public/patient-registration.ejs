@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration</title>
+    <link rel="stylesheet" href="/patient-registration.css">
+</head>
+<body>
+    <section class="container">
+
+      <form action="/submit-patient" method="POST" class="form">
+        <div class="input-box">
+            <label>Hospital Name:</label>
+            <input type="text" name="hospital_name" value="<%= hospital_name %>" readonly>
+        </div>
+
+        <div class="input-box">
+            <label>Doctor Name:</label>
+            <input type="text" name="doctor_name" value="<%= doctor_name %>" readonly>
+        </div>
+
+        <header>Patient Registration</header>
+
+        <div class="column">
+          <div class="input-box">
+            <label>First Name:</label>
+            <input type="text" name="first_name" placeholder="Enter your first name" required>
+          </div>
+          <div class="input-box">
+            <label>Last Name:</label>
+            <input type="text" name="last_name" placeholder="Enter your last name" required>
+          </div>
+        </div>
+
+        <div class="column">
+            <div class="input-box">
+              <label>Gender:</label>
+              <div class="select-box">
+                <select name="gender" required>
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="input-box">
+                <label>Age:</label>
+                <input type="number" name="age" maxlength="3" placeholder="Enter your age" required>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="input-box">
+                <label>Phone:</label>
+                <input type="number" name="phone" maxlength="12" placeholder="Enter your phone number" required>
+            </div>
+            <div class="input-box">
+              <label>Address:</label>
+              <input type="text" name="address" maxlength="30" placeholder="Enter your address" required>
+            </div>
+        </div>
+
+        <input type="hidden" name="doctor_id" value="<%= doctor_id %>">
+
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  </body>
+</html>
