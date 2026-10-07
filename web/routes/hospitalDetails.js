@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../config/db');
 
 router.get('/', async (req, res) => {
-    const hospitalId = req.query.id; // Get the hospital ID from query parameters
+    const hospitalId = req.query.id;
     console.log('Fetching details for hospital ID:', hospitalId);
 
     if (!hospitalId) {
@@ -15,17 +15,14 @@ router.get('/', async (req, res) => {
         const doctorQuery = `SELECT * FROM doctors WHERE hospital_id = ?`;
         const skillsQuery = `SELECT DISTINCT skills FROM doctors WHERE hospital_id = ?`;
 
-        // Fetch hospital details
         const [hospitalResults] = await db.execute(hospitalQuery, [hospitalId]);
         if (hospitalResults.length === 0) {
             return res.status(404).json({ error: 'Hospital not found' });
         }
         const hospital = hospitalResults[0];
 
-        // Fetch doctors details
         const [doctorResults] = await db.execute(doctorQuery, [hospitalId]);
 
-        // Fetch distinct skills for doctors
         const [skillsResults] = await db.execute(skillsQuery, [hospitalId]);
 
         res.render('hospital-details', { hospital, doctors: doctorResults, skills: skillsResults });
