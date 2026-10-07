@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sankalp Setu</title>
+    <link type="text/css" rel="stylesheet" href="/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!--<nav>
+        <ul class="menu">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a id="login-link" href="/login">Login</a></li>
+        </ul>
+    </nav>-->
+
+    <nav>
+        <img class="logo" src="/logobcrem.png">
+    </nav>
+
+    <div class="in-container">
+        <h2 class="heading">Sankalp<span>Setu</span></h2>
+        <div class="search-bar" id="searchContainer">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" placeholder="Search for hospitals, clinics, or locations..." id="searchInput" oninput="showSuggestions(this.value)">
+        </div>
+        <div id="suggestions" class="suggestions-list"></div>
+    </div>
+    
+
+        <div class="link-container">
+            <h2>Hospitals</h2>
+            <div class="link-section">
+                <a href="/hospital-details?id=9" target="_self">Jhakkas Hospital 24*7 Jabalpur</a>
+                <a href="/hospital-details?id=9" target="_blank">Jhakkas Hospital 24*7 Jabalpur</a>
+                <a href="" target="_blank">Example Link 3</a>
+                <a href="" target="_blank">Example Link 4</a>
+                <a href="" target="_blank">Example Link 5</a>
+                <a href="" target="_blank">Example Link 6</a>
+                <a href="" target="_blank">Example Link 7</a>
+                <a href="" target="_blank">Example Link 8</a>
+                <a href="" target="_blank">Example Link 9</a>
+                <a href="" target="_blank">Example Link 10</a>
+                <a href="" target="_blank">Example Link 11</a>
+                <a href="" target="_blank">Example Link 12</a>
+                <a href="" target="_blank">Example Link 13</a>
+                <a href="" target="_blank">Example Link 14</a>
+            </div>
+
+            <h2>Clinics</h2>
+            <div class="link-section">
+                <a href="" target="_self">Jhakkas Hospital 24*7 Jabalpur</a>
+                <a href="" target="_blank">Example Link 2</a>
+                <a href="" target="_blank">Example Link 3</a>
+                <a href="" target="_blank">Example Link 4</a>
+                <a href="" target="_blank">Example Link 5</a>
+                <a href="" target="_blank">Example Link 6</a>
+                <a href="" target="_blank">Example Link 7</a>
+                <a href="" target="_blank">Example Link 8</a>
+                <a href="" target="_blank">Example Link 9</a>
+                <a href="" target="_blank">Example Link 10</a>
+                <a href="" target="_blank">Example Link 11</a>
+                <a href="" target="_blank">Example Link 12</a>
+                <a href="" target="_blank">Example Link 13</a>
+                <a href="" target="_blank">Example Link 14</a>
+            </div>
+    
+            <!--<h3>Other Information</h3>
+            <p>This section can contain other content like descriptions, images, or text.</p>-->
+        </div>
+
+        <div class="last">
+            <h3>Useful links</h3>
+            <img class="logo" src="../assests/logobcrem.png">
+        </div>
+    <script>
+function showSuggestions(query) {
+    const suggestionsContainer = document.getElementById('suggestions');
+    
+    suggestionsContainer.innerHTML = '';
+    
+    if (!query) {
+        suggestionsContainer.style.display = 'none';
+        return;
+    }
+
+    fetch(`/search?q=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                suggestionsContainer.style.display = 'block';
+                data.forEach(item => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.classList.add('suggestion-item');
+                    suggestionItem.textContent = `${item.name} - ${item.address}`;
+                    suggestionItem.onclick = () => {
+                        window.location.href = `/hospital-details?id=${item.id}`;
+                        /* document.getElementById('searchInput').value = item.name; // Set the input value
+                        suggestionsContainer.style.display = 'none'; */ // Hide suggestions after selection
+                    };
+                    suggestionsContainer.appendChild(suggestionItem);
+                });
+            } else {
+                suggestionsContainer.style.display = 'none';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching suggestions:', error);
+        });
+}
+    </script>
+</body>
+</html>
