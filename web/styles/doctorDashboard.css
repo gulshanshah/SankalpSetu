@@ -205,7 +205,7 @@ button {
 }
 
 .clicked {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
     color: white;
 }
 
@@ -266,13 +266,11 @@ button {
   color: #333;
 }
 
-/* For all browsers */
 input[type="number"] {
-  -moz-appearance: textfield; /* Firefox */
-  appearance: textfield;      /* Modern browsers */
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
-/* Remove spinners for WebKit browsers (Chrome, Safari, Edge) */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
