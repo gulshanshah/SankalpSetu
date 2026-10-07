@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
 
-// Route to get suggestions
 router.get('/', async (req, res) => {
     const query = req.query.q;
 
