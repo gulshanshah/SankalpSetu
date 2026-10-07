@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= hospital.name %> - Details</title>
+    <!--<link rel="stylesheet" href="/home.css">-->
+    <link rel="stylesheet" href="/hospitalDetails.css">
+</head>
+<body>
+    <!--<nav>
+        <ul class="menu">
+            <li><a href="/home">Home</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">Services</a></li>
+            <li><a href="">Contact</a></li>
+        </ul>
+    </nav>-->
+
+    <nav>
+        <img class="logo" src="/logobcrem.png">
+        <h3>Sankalp<span>Setu</span></h3>
+    </nav>
+
+    <div class="hospital-container">
+        <div class="hospital-card" data-category="category1">
+            <div class="hospital-header">
+                <img src="<%= hospital.photo %>" alt="<%= hospital.name %>" class="hospital-image">
+                <div class="hospital-info">
+                    <div class="hospital-name"><%= hospital.name %></div>
+                    <div class="hospital-address"><%= hospital.address %></div>
+                </div>
+            </div>
+            <div class="hospital-footer">
+                <div class="filter-options">
+                    <span class="category-label">Speciality:</span>
+                    <select id="hospitalCategoryFilter">
+                        <option value="all">All</option>
+                        <% skills.forEach(skill => { %>
+                            <option value="<%= skill.skills.toLowerCase().replace(' ', '-') %>"><%= skill.skills %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <% doctors.forEach(doctor => { %>
+        <div class="box" data-skill="<%= doctor.skills.toLowerCase().replace(' ', '-') %>">
+            <div class="header">
+                <img src="<%= doctor.photo %>" alt="<%= doctor.name %>" class="small-pic">
+                <div class="info">
+                    <div class="name"><%= doctor.name %></div>
+                    <div class="degree"><%= doctor.skills %></div>
+                </div>
+            </div>
+            <form action="/patient-registration" method="GET" class="footer">
+                <input type="hidden" name="hospital_name" value="<%= hospital.name %>">
+                <input type="hidden" name="doctor_name" value="<%= doctor.name %>">
+                <input type="hidden" name="doctor_id" value="<%= doctor.id %>">
+                <button type="submit" class="details-btn">Appointment</button>
+            </form>
+
+            <div id="live-section-<%= doctor.id %>" class="live-section">
+                <span class="live-dot"></span>
+                <span class="live-text">Live</span>
+                <input type="text" class="live-input" id="number-<%= doctor.id %>" value="0" readonly>
+            </div> 
+        </div>
+        <% }) %>
+    </div>
+
+    <script>
+        // Handle skill filtering
+        document.getElementById('hospitalCategoryFilter').addEventListener('change', function() {
+            var selectedSkill = this.value;
+            var doctors = document.querySelectorAll('.box'); // Assuming each doctor div has a class of "doctor-box"
+            
+            doctors.forEach(function(doctor) {
+                var doctorSkills = doctor.getAttribute('data-skill');
+                
+                if (selectedSkill === 'all' || doctorSkills === selectedSkill) {
+                    doctor.style.display = 'block'; // Show doctor
+                } else {
+                    doctor.style.display = 'none'; // Hide doctor
+                }
+            });
+        });
+        
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+    
+        socket.on('numberUpdate', (data) => {
+            const inputField = document.getElementById(`number-${data.doctorId}`);
+            if (inputField) {
+                inputField.value = data.number;
+            }
+        });
+    </script>
+    
+    
+</body>
+</html>
