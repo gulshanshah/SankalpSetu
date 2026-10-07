@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="/doctorDashboard.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    fetch('/patients')
+        .then(response => response.json())
+        .then(data => {
+            const patientsTable = document.getElementById('patientsTableBody');
+
+            if (data.patients.length > 0) {
+                data.patients.forEach(patient => {
+                    patientId = patient.id
+                    // Add patient data to the table dynamically
+                    const row = `
+                        <tr>
+                            <td>${patient.first_name} ${patient.last_name}</td>
+                            <td>${patient.gender}</td>
+                            <td>${patient.age}</td>
+                            <td>${patient.phone}</td>
+                            <td>${patient.address}</td>
+                            <td>
+                                <input type="number" class="num-in" id="content-${patient.id}" placeholder="Num" maxlength="5" required>
+                                <button type="button" class="num-btn" onclick="sendPatientData(${patient.id})">Send</button>
+                            </td>
+                            <td>${new Date(patient.created_at).toLocaleDateString()}</td>
+                        </tr>`;
+                    patientsTable.innerHTML += row;
+                });
+            } else {
+                patientsTable.innerHTML = '<tr><td colspan="7">No patients found.</td></tr>';
+            }
+        })
+        .catch(err => {
+            console.error('Error fetching patients:', err);
+        });
+});
+
+// Function to handle "Send" button click
+function sendPatientData(patientId) {
+    // Find the input field and its value
+    const inputField = document.getElementById(`content-${patientId}`);
+    const additionalNumber = inputField.value;
+
+    if (!additionalNumber) {
+        alert('Please enter a number before sending.');
+        return;
+    }
+
+    // Locate the corresponding table row
+    const row = inputField.closest('tr');
+
+    // Gather patient data from the row
+    const patientData = {
+        id: patientId,
+        name: row.children[0].textContent.trim(),
+        gender: row.children[1].textContent.trim(),
+        age: row.children[2].textContent.trim(),
+        phone: row.children[3].textContent.trim(),
+        address: row.children[4].textContent.trim(),
+        additionalNumber: additionalNumber,
+        addedOn: row.children[6].textContent.trim(),
+    };
+
+    // Send data to the backend
+    fetch('/sendPatientData', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(patientData),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(`Data for ${patientData.name} sent successfully!`);
+            } else {
+                alert('Failed to send data. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error sending data:', error);
+            alert('An error occurred while sending the data.');
+        });
+}
+
+    </script>
+    
+</head>
+<body>
+    <div class="container"  id="container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+          <hr id="upperone">
+          <ul>
+            <li><a>Dashboard</a></li>
+            <li><a>Profile</a></li>
+            <li><a>Doctors</a></li>
+            <li><a>?Help</a></li>
+          </ul>
+          <hr id="lowerone">
+          <a href="/logout" class="bottom-link">Log Out</a>
+        </div>
+
+
+    
+
+    <div class="main-content" id="main">
+        <div class="bar" id="bar">
+        <button id="toggleButton"><<</button>
+
+    <div>
+        <h1><%= doctor.name %></h1></br>
+        <h2><%= doctor.skills %></h2>
+        
+    </div>
+
+        <div class="numbers">
+            <p>Current Number: <span id="current-number">0</span></p>
+            <button id="reset-btn" onclick="updateNumber('reset', <%= doctor.id %>)">Reset</button>
+            <button id="decrement-btn" onclick="updateNumber('decrement', <%= doctor.id %>)">Prev</button>
+            <button id="increment-btn" onclick="updateNumber('increment', <%= doctor.id %>)">Next</button>
+        </div>
+
+    </div>
+
+        <h1 id="doctorWelcome"></h1>
+        <h2 class="main-pat">Your Patients</h2>        
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Number</th>
+                <th>Added On</th>
+            </tr>
+        </thead>
+        <tbody id="patientsTableBody">
+        </tbody>
+    </table>
+
+        </div>
+      </div>
+
+
+    <script>
+    const toggleButton = document.getElementById('toggleButton');
+        const sidebar = document.getElementById('sidebar');
+        const main = document.getElementById('main');
+        const bar = document.getElementById('bar');
+        const container = document.getElementById('container');
+        
+        toggleButton.addEventListener('click', () => {
+          sidebar.classList.toggle('hidden');
+          main.classList.toggle('hidden');
+          bar.classList.toggle('hidden');
+          container.classList.toggle('sidebar-hidden');
+        
+          if (sidebar.classList.contains('hidden')) {
+            toggleButton.textContent = '>>';
+          } else {
+            toggleButton.textContent = '<<';
+          }
+        });
+        </script>
+        <script>
+            let currentNumber = 0;
+
+function updateNumber(action, button) {
+    if (action === 'reset') {
+        currentNumber = 0;
+    } else if (action === 'increment') {
+        currentNumber++;
+    } else if (action === 'decrement' && currentNumber > 0) {
+        currentNumber--;
+    }
+
+    document.getElementById('current-number').textContent = currentNumber;
+
+    document.getElementById('reset-btn').disabled = currentNumber <= 0;
+    document.getElementById('decrement-btn').disabled = currentNumber <= 0;
+
+    if (button) {
+        button.classList.add('clicked');
+        setTimeout(() => button.classList.remove('clicked'), 200);
+    }
+}
+
+document.addEventListener('keydown', function (event) {
+    let action = null;
+    let button = null;
+
+    if (event.key === 'r' || event.key === 'R') {
+        action = 'reset';
+        button = document.getElementById('reset-btn');
+    } else if (event.key === 'ArrowUp' || event.key === 'ArrowRight' || event.key === ' ') {
+        action = 'increment';
+        button = document.getElementById('increment-btn');
+    } else if (event.key === 'ArrowDown' || event.key === 'ArrowLeft') {
+        if (currentNumber <= 0) {
+            event.preventDefault();
+            return;
+        }
+        action = 'decrement';
+        button = document.getElementById('decrement-btn');
+    }
+
+    if (action) {
+        event.preventDefault();
+        updateNumber(action, button);
+    }
+});
+
+document.getElementById('reset-btn').disabled = true;
+document.getElementById('decrement-btn').disabled = true;
+
+/*
+updateDoctorNumbers(doctorId, currentNumber);
+function updateDoctorNumbers(doctorId, currentNumber) {
+            fetch('/updateDoctorNumbers', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    doctorId: doctorId,
+                    currentNumber: currentNumber
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Data updated successfully', data);
+            })
+            .catch(error => {
+                console.error('Error updating data', error);
+            });
+        }
+*/
+        </script>
+        <script>
+        console.log("Doctor ID from EJS:", "<%= doctor.id %>");
+       // const doctorId = <%= doctor.id %>;
+        
+        </script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+    const doctorId = <%= doctor.id %>;
+    console.log("doctorId:", doctorId);
+
+    if (doctorId !== null && !isNaN(doctorId)) {
+        console.log("Doctor ID from Browser:", doctorId); // Logs in the browser console
+
+        // Send to the server
+        fetch('/logDoctorId', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ doctorId })
+        })
+            .then(response => response.json())
+            .then(data => console.log('Doctor ID logged on server:', data))
+            .catch(error => console.error('Error logging doctor ID:', error));
+    } else {
+        console.error("Doctor ID is missing or invalid.");
+    }
+
+
+            const socket = io();
+           // const doctorId = parseInt(document.getElementById('doctorId').value, 10);
+            console.log('doctorId:', doctorId, 'Type:', typeof doctorId);
+        
+            function updateNumber(action, doctorId) {
+                let currentNumber = parseInt(document.getElementById(`current-number`).textContent);
+        
+                if (action === 'increment') currentNumber++;
+                else if (action === 'decrement' && currentNumber > 0) currentNumber--;
+                else if (action === 'reset') currentNumber = 0;
+        
+                document.getElementById('current-number').textContent = currentNumber;
+        
+                // Emit the updated number to the server
+                socket.emit('updateNumber', { doctorId, number: currentNumber });
+                console.log('Sending data:', { doctorId, number: currentNumber });
+
+            }
+        </script>
+        
+</body>
+</html>
