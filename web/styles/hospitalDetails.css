@@ -1,0 +1,283 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+    font-family: "Poppins", sans-serif;
+}
+.live-input {
+    width: 30px; 
+    padding: 2px;
+    text-align: center;
+    font-weight: bold;
+    color: red;
+    font-size: 15px;
+    border: 1.5px solid rgb(36, 49, 81);
+    border-radius: 5px;
+    outline: none;
+} 
+
+ .details-btn {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 13px;
+    width: 100px;
+    height: auto;
+}
+
+.details-btn:hover,
+.book-btn:hover {
+    color: #212121;
+    font-weight: 600;
+}
+
+.book-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 13px;
+    width: 70px;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 769px) {
+    .container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+.box:hover {
+    background-color: #e2e2e2;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    position: relative;
+}
+
+.box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100px;
+    position: relative; 
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.small-pic {
+    width: 70px;
+    height: 70px;
+    border-radius: 20%;
+    margin-right: 10px;
+}
+
+.info {
+    flex-grow: 1;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.degree {
+    font-size: 15px;
+    color: #666;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 1rem;
+}
+
+.live-section {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.live-dot {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.live-text {
+    color: red;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.hospital-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.hospital-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px; 
+    background-color: #e1d6d6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.hospital-header {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+
+.hospital-image {
+    width: 400px; 
+    height: 200px;
+    border-radius: 20px;
+}
+
+.hospital-info {
+    flex-grow: 1;
+}
+
+.hospital-name {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333; 
+}
+
+.hospital-address {
+    font-size: 18px;
+    color: #555; 
+}
+
+.hospital-footer {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+#hospitalCategoryFilter {
+    padding: 5px 40px;
+    border-radius: 5px;
+    margin: 0;
+    border: none;
+    background-color: #876565; 
+    color: #000;
+    font-size: 18px;
+    cursor: pointer;
+    height: auto;
+    width: auto;
+    outline: none;
+}
+
+.filter-options {
+    margin-left: 1rem;
+    margin-right: 10px;
+}
+
+.filter-options {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.category-label {
+    font-size: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+@media(max-width: 600px) {
+    .hospital-image {
+        display: none;
+        width: 400px; 
+        height: 200px;
+        border-radius: 20px;
+    }
+
+    .hospital-footer {
+        position: relative;
+        bottom: -20px;
+        right: -50px;
+        margin-bottom: 10px;
+    }
+}
+
+nav {
+    padding: 0;
+    display: flex;
+    font-size: 20px;
+    border-bottom: 1px solid black;
+}
+
+nav img {
+    height: 50px;
+    margin-right: 10px;
+    margin: 5px 10px 0 40px;
+}
+
+nav h3 {
+    margin-top: 15px;
+    margin-bottom: 0px;
+    margin-left: 40px;
+}
+
+span {
+    color: rgb(160, 40, 40);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #c0b0b0;
+    margin: 0;
+}
