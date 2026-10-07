@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link rel="stylesheet" href="/thank-you.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Registration Successful</h1>
+        <p>Patient Name: <span><%= first_name %> <%= last_name %></span></p>
+        <p>Gender: <span><%= gender %></span></p>
+        <p>Age: <span><%= age %></span></p>
+        <p>Phone: <span><%= phone %></span></p>
+        <p>Address: <span><%= address %></span></p>
+        <a class="ok" href="/home">Okay</a>
+    </div>
+</body>
+</html>
