@@ -1,4 +1,12 @@
 {
+  "name": "sankalp-setu",
+  "version": "1.0.0",
+  "description": "Hospital and patient bridge platform: registrations, doctor and hospital dashboards, live queue numbers and SMS alerts",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
