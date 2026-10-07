@@ -38,13 +38,12 @@ router.post('/submit-patient', async (req, res) => {
 });
 
 router.get('/thank-you', (req, res) => {
-    const { first_name, last_name, gender, age, phone, address } = req.query; // Retrieve data from query params
+    const { first_name, last_name, gender, age, phone, address } = req.query;
 
     if (!first_name || !last_name) {
         return res.status(400).send('Missing patient details');
     }
 
-    // Render the "Thank You" page and pass the patient's name
     res.render('thank-you', { first_name, last_name, gender, age, phone, address });
 });
 
