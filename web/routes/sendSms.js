@@ -1,11 +1,13 @@
 const express = require('express');
 const twilio = require('twilio');
+require('dotenv').config();
 
 const router = express.Router();
 
-const accountSid = 'YOUR_TWILIO_ACCOUNT_SID';
-const authToken = 'YOUR_TWILIO_AUTH_TOKEN';
-const client = twilio(accountSid, authToken);
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const fromNumber = process.env.TWILIO_FROM;
+const client = accountSid && authToken ? twilio(accountSid, authToken) : null;
 
 router.post('/sendPatientData', (req, res) => {
     const {
@@ -19,7 +21,6 @@ router.post('/sendPatientData', (req, res) => {
         addedOn
     } = req.body;
 
-    // Create the SMS message body
     const messageBody = `
         Patient Details:
         Name: ${name}
@@ -31,12 +32,15 @@ router.post('/sendPatientData', (req, res) => {
         Added On: ${addedOn}
     `;
 
-    // Send SMS via Twilio
+    if (!client) {
+        return res.status(500).json({ success: false, error: 'Twilio credentials are not configured' });
+    }
+
     client.messages
         .create({
             body: messageBody,
-            from: 'YOUR_TWILIO_PHONE_NUMBER', // Your Twilio phone number
-            to: phone, // Patient's phone number
+            from: fromNumber,
+            to: phone,
         })
         .then(message => res.json({ success: true, messageSid: message.sid }))
         .catch(error => {
