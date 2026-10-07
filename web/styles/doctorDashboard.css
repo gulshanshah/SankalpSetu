@@ -1,0 +1,280 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+*{
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+h1 {
+    color: blue;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+ 
+  .container {
+    display: flex;
+    height: 100vh;
+    transition: all 0.3s ease;
+  }
+  
+  .sidebar {
+    position: fixed;
+    overflow-y: auto;
+    background-color: #333;
+    justify-content: center;
+    color: white;
+    height: 100vh;
+    width: 20vw;
+    transition: width 0.3s ease, padding 0.3s ease;
+    overflow: hidden;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 0 10px 10px 0;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  
+  #upperone {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  
+  #lowerone {
+    margin-top: 50px;
+    margin-bottom: 250px;
+  }
+  
+  .sidebar ul li {
+    margin-bottom: 15px;
+    cursor: pointer;
+  }
+  
+  .sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sidebar ul li:hover {
+    background-color: #605551;
+  }
+  
+  .sidebar.hidden {
+    width: 0;
+    padding: 0;
+  }
+  
+  .main-content {
+    margin-left: 20vw;
+    overflow-y: auto;
+    height: 100vh;
+    flex-grow: 1;
+    background-color: #f4f4f4;
+    padding: 2px 10px 10px 10px;
+    transition: padding 0.3s ease;
+    width: 80vw;
+    border-radius: 10px;
+  }
+
+  .main-content.hidden {
+    margin-left: 0;
+  }
+  
+  #toggleButton {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 40px;
+  }
+  
+  #toggleButton:hover {
+    background-color: #605551;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+    }
+  
+    .sidebar.hidden {
+      height: 0;
+    }
+  }
+  
+  .main {
+    flex-grow: 1;
+    background-color: #f4f4f4;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  .box {
+    background-color: #ff6347;
+    color: white;
+    width: 30%;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .area {
+    background: rgb(133, 133, 137);
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  #logout {
+    left: 0;
+    bottom: 10%;
+  }
+  
+  .bottom-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 60px;
+    display: inline-block;
+    text-align: center;
+    margin-top: auto;
+    background: red;
+    border-radius: 10px;
+  }
+  
+  .bottom-link:hover {
+    background-color: #b92319;
+  }
+  
+  .bar {
+    width: 76vw;
+    height: 132px;
+    position: fixed;
+    background-color: rgb(219, 200, 200);
+    padding: 5px;
+    border-radius: 10px;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .bar.hidden {
+    width: 96vw;
+  }
+  
+  .main-pat {
+    margin-top: 136px;
+  }
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.clicked {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.info {
+  display: block;
+  align-content: center;
+}
+
+.numbers {
+  border: 2px solid black;
+  border-radius: 5px;
+  width: fit-content;
+  padding: 10px;
+  margin: 5px;
+}
+
+.numbers p {
+  font-size: 18px;
+  cursor: default;
+}
+
+.numbers p span {
+  font-size: 20px;
+  color: red;
+  font-weight: 700;
+}
+
+.cl-num {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.num-in {
+  padding: 2px;
+  margin: 0;
+  color: #2e1915;
+  font-size: 14px;
+  font-weight: 600;
+  width: 40px;
+  outline: none;
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+
+.num-btn {
+  padding: 0;
+  margin: 0 5px 0 5px;
+  width: 40px;
+  border: none;
+  border-radius: 5px;
+  background: #b92319;
+  color: #f2f2f2;
+  font-size: 12px;
+}
+
+.num-btn:hover {
+  color: #333;
+}
+
+/* For all browsers */
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+  appearance: textfield;      /* Modern browsers */
+}
+
+/* Remove spinners for WebKit browsers (Chrome, Safari, Edge) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
